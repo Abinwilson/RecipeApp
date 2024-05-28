@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block title %} {{ title }} {% endblock %}
+{% load static %}
 {% block content %}
 <section class="bg-white dark:bg-gray-900">
     <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
@@ -11,7 +12,8 @@
                     {% csrf_token %}
                     <h5 class="text-xl font-medium text-gray-900 dark:text-white">Sign up to our platform</h5>
                     <div>
-                        <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                        <label for="first_name"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                             First name</label>
                         <input type="text" name="first_name" id="first_name"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -39,30 +41,33 @@
                             placeholder="johndoe@gmail.com" required />
                     </div>
                     <div>
-                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-                        <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"required />
+                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                            password</label>
+                        <input type="password" name="password" id="password" placeholder="••••••••"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            required />
                     </div>
                     <div>
-                        <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                        <input type="password" name="confirm_password" id="confirm_password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"required />
+                        <label for="confirm_password"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm
+                            password</label>
+                        <input type="password" name="confirm_password" id="confirm_password" placeholder="••••••••"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            required />
                     </div>
-                    <button type="submit"class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login to your account</button>
+                    <button type="submit"
+                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register
+                        your account</button>
                     <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                        Not registered? <a href="{% url 'core:signin' %}" class="text-blue-700 hover:underline dark:text-blue-500">Login</a>
+                        Not registered? <a href="{% url 'core:signin' %}"
+                            class="text-blue-700 hover:underline dark:text-blue-500">Login</a>
                     </div>
-                    {% if messages %}
-                    {% for i in messages %}
-                    <ul>
-                        <li style="color:red;">{{i}}</li>
-                    </ul>
-                    {% endfor %}
-                    {% endif %}
                 </form>
             </div>
 
         </div>
         <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-            <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png" alt="mockup">
+            <img src="{% static 'signup-recipe.svg'%}" alt="Signup Image">
         </div>
     </div>
 </section>

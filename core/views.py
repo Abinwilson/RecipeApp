@@ -2,10 +2,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from django.http import HttpResponse
+from user_profile.models import Profile
 
-
-# Create your views here.
 
 def home(request):
     return render(request,'home.html',{
@@ -17,15 +15,15 @@ def signin(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username,password=password)
-        if user is  None:
-            # No backend authenticated the credentials.
-            messages.error(request,"Invalid credentials. please check your username and password.")
-            return redirect('core:signin')
-        else:
+        if user is not  None:
             # A backend authenticated the credentials.
             login(request,user)
+            messages.success(request,'Login successful. Welcome back!')
             return redirect('core:home')
-
+        else:
+             # No backend authenticated the credentials.
+            messages.error(request,"Invalid credentials. please check your username and password.")
+            return redirect('core:signin')
     return render(request,'signin.html',{
         'title':'Signin'
     })
@@ -52,14 +50,21 @@ def signup(request):
                 # Log the user in using the credentials.
                 user_credentials = authenticate(username=username,password=password)
                 login(request,user_credentials)
-                print("Account created successfully! welcome to our community.")
+                # create profile for the user.
+                get_new_user = User.objects.get(username=username)
+                new_profile = Profile.objects.create(user=get_new_user)
+                new_profile.save()
+                # redirect the user
+                messages.success(request,"Account created successfully! welcome to our community.")
                 return redirect('core:home')
         else:
-            return HttpResponse("password not matching")
+            messages.error(request,"Password Not Match")
+            return redirect('core:signup')
     return render(request,'signup.html',{
         'title':'Signup'
     })
 
 def signout(request):
     logout(request)
+    messages.success(request,"Logout successful. Have a great day!")
     return redirect('core:signin')
